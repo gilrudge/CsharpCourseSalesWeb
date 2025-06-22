@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
+using SalesWebMvc.Services;
 
 
 
@@ -18,12 +19,14 @@ builder.Services.AddControllersWithViews();
 
 //SeedingService is used to populate the database with initial data.
 builder.Services.AddScoped<SeedingService>();
-var batata = new SeedingService(new SalesWebMvcContext(builder.Services.BuildServiceProvider().GetRequiredService<DbContextOptions<SalesWebMvcContext>>()));
+var seedingService = new SeedingService(new SalesWebMvcContext(builder.Services.BuildServiceProvider().GetRequiredService<DbContextOptions<SalesWebMvcContext>>()));
 
+//Add other services as needed
+builder.Services.AddScoped<SellerService>();
 
 var app = builder.Build();
 
-batata.Seed(); // Seed the database with initial data
+seedingService.Seed(); // Seed the database with initial data
 
 
 //Configure the HTTP request pipeline.
