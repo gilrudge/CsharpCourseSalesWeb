@@ -23,6 +23,7 @@ var seedingService = new SeedingService(new SalesWebMvcContext(builder.Services.
 
 //Add other services as needed
 builder.Services.AddScoped<SellerService>();
+builder.Services.AddScoped<DepartmentService>();
 
 var app = builder.Build();
 
